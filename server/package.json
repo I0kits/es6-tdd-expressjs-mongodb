@@ -1,0 +1,43 @@
+{
+  "private": true,
+  "version": "1.0.0",
+  "name": "reporting",
+  "author": "creditsuissehk@thoughtworks.com",
+  "description": "Report generator of Peacock.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ],
+    "plugins": []
+  },
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "body-parser": "^1.18.2",
+    "compression": "^1.7.0",
+    "express": "^4.15.5",
+    "getenv": "^0.7.0",
+    "lodash": "^4.17.4",
+    "mongoose": "^4.11.13",
+    "morgan": "^1.8.2",
+    "serve-favicon": "^2.4.4",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
+}
