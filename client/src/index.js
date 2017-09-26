@@ -1,7 +1,6 @@
 import dva from 'dva';
-import React from 'react';
 import './index.css';
-import Users from './models/users';
+import { user } from './models/users';
 import RouteConfig from './router';
 
 const cached = {};
@@ -15,7 +14,7 @@ function registerModel(app, model) {
 // 1. Initialize
 const app = dva();
 
-registerModel(app, Users);
+registerModel(app, user);
 
 // 3. Router
 app.router(RouteConfig);
