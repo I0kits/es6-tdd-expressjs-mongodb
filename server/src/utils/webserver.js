@@ -1,40 +1,41 @@
-import fs from 'fs'
-import path from 'path'
+// import fs from 'fs';
+// import path from 'path';
+// import path from 'path';
 
-import http from 'http'
-import https from 'https'
+import http from 'http';
+import https from 'https';
 
 import logger from './logger';
 
 const util = {
   parsePort: (input) => {
-    const port = parseInt(input, 10)
-    return isNaN(port) ? input : port >= 0 ? port : false
+    const port = parseInt(input, 10);
+    return isNaN(port) ? input : port >= 0 ? port : false;
   },
 
   parseServerAddress: (addr) => {
-    return typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port
+    return typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   },
 
   parseHttpServerError: (error, port) => {
-    const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port
+    const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
     switch (error.code) {
       case 'EACCES':
-        return bind + ' requires elevated privileges'
+        return bind + ' requires elevated privileges';
       case 'EADDRINUSE':
-        return bind + ' is already in use'
+        return bind + ' is already in use';
       default:
-        throw error
+        throw error;
     }
-  }
+  },
 };
 
-const loadHttpsCertKeyFiles = ({keyfile, certfile}) => {
-  if (fs.existsSync(keyfile) && fs.existsSync(certfile)) {
-    return {key: fs.readFileSync(keyfile), cert: fs.readFileSync(certfile)};
-  }
-  throw new Error(`Load cert file ${keyfile} or ${certfile}`)
-};
+// const loadHttpsCertKeyFiles = ({keyfile, certfile}) => {
+//   if (fs.existsSync(keyfile) && fs.existsSync(certfile)) {
+//     return {key: fs.readFileSync(keyfile), cert: fs.readFileSync(certfile)};
+//   }
+//   throw new Error(`Load cert file ${keyfile} or ${certfile}`);
+// };
 
 const registerEventHandlers = (server, opts) => {
   server.on('listening', () => {
@@ -57,7 +58,8 @@ const registerEventHandlers = (server, opts) => {
 };
 
 const default_options = {
-  https: false, port: util.parsePort(process.env.port || '3000')
+  https: false,
+  port: util.parsePort(process.env.port || '3000'),
 };
 
 export default {
@@ -74,10 +76,10 @@ export default {
     registerEventHandlers(server, opts).listen(opts.port);
 
     process.on('beforeExit', ()=> {
-      logger.info('the server will be close.')
-      graceful.gracefulExitHandler(app, server, {})
+      logger.info('the server will be close.');
+      graceful.gracefulExitHandler(app, server, {});
     });
 
     return server;
-  }
+  },
 };
