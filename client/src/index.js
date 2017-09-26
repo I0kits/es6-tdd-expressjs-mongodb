@@ -1,23 +1,24 @@
-import dva ,{ connect }from 'dva';
-import { Router, Route } from 'dva/router';
+import dva from 'dva';
 import React from 'react';
 import './index.css';
+import Users from './models/users';
+import RouteConfig from './router';
+
+const cached = {};
+function registerModel(app, model) {
+  if (!cached[model.namespace]) {
+    app.model(model);
+    cached[model.namespace] = 1;
+  }
+}
 
 // 1. Initialize
 const app = dva();
 
-// 2. Model
-// Remove the comment and define your model.
-//app.model({});
+registerModel(app, Users);
 
 // 3. Router
-const HomePage = () => <div>Hello Dva World!!!!!!</div>;
-
-app.router(({ history }) =>
-  <Router history={history}>
-    <Route path="/" component={HomePage} />
-  </Router>
-);
+app.router(RouteConfig);
 
 // 4. Start
 app.start('#root');
