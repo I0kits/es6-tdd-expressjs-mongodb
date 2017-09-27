@@ -1,5 +1,5 @@
 export const dosomething = () => 'hello';
-export const user = {
+export const users = {
   namespace: 'users',
   state: {},
   reducers: {

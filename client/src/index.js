@@ -1,23 +1,16 @@
 import dva from 'dva';
+import createBrowserHistory from 'history/createBrowserHistory';
 import './index.css';
-import { user } from './models/users';
-import RouteConfig from './router';
-
-const cached = {};
-function registerModel(app, model) {
-  if (!cached[model.namespace]) {
-    app.model(model);
-    cached[model.namespace] = 1;
-  }
-}
+import router from './router';
 
 // 1. Initialize
-const app = dva();
+const app = dva({
+  history: createBrowserHistory(),
+});
 
-registerModel(app, user);
 
 // 3. Router
-app.router(RouteConfig);
+app.router(router);
 
 // 4. Start
 app.start('#root');

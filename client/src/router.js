@@ -1,12 +1,23 @@
 import React from 'react';
-import { Router, Route } from 'dva/router';
+import { Router, Switch, Route } from 'dva/router';
+import dynamic from 'dva/dynamic';
 import Users from './routes/Users';
+import { users } from './models/users';
 
-function RouterConfig({ history }) {
+function RouterConfig({ history, app }) {
+  const UsersContainer = dynamic({
+    app,
+    models: () => [users],
+    component: () => Users,
+  });
   return (
-    <Router history={history}>
-      <Route path="/users" component={Users} />
-    </Router>
+    <div>
+      <Router history={history}>
+        <Switch>
+          <Route exact path="/users" component={UsersContainer} />
+        </Switch>
+      </Router>
+    </div>
   );
 }
 
