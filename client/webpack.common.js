@@ -13,7 +13,7 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
   ],
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name]_[hash].bundle.js',//hashmap
     path: path.resolve(__dirname, 'dist'),
   },
 

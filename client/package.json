@@ -2,11 +2,11 @@
   "name": "client",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT",
+  "private": true,
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "start": "webpack-dev-server --open --config webpack.dev.js",
-    "test": "mocha test/**/*.js --compilers js:babel-core/register --require ignore-styles ",
+    "test": "mocha test/**/*.js --watch --compilers js:babel-core/register --require ignore-styles ",
     "lint": "eslint src"
   },
   "dependencies": {
