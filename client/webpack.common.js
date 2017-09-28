@@ -2,6 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
+const output_path = path.resolve(__dirname, '../www');
+
 module.exports = {
   entry: path.resolve(__dirname, './src/index.js'),
   plugins: [
@@ -10,13 +12,12 @@ module.exports = {
         title: 'Output Management',
         template: './src/index.html'
       }),
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin([output_path], {allowExternal: true}),
   ],
   output: {
-    filename: '[name]_[hash].bundle.js',//hashmap
-    path: path.resolve(__dirname, 'dist'),
+    path: output_path,
+    filename: '[name].[chunkhash].bundle.js',
   },
-
   module: {
     rules: [
       {
