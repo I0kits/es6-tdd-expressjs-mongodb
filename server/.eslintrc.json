@@ -2,6 +2,5 @@
     "extends": "google",
     "parser": "babel-eslint",
     "rules": {
-        "camelcase": [1, {"properties": "always"}]
     }
 }

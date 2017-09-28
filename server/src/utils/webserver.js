@@ -30,17 +30,11 @@ const util = {
   },
 };
 
-// const loadHttpsCertKeyFiles = ({keyfile, certfile}) => {
-//   if (fs.existsSync(keyfile) && fs.existsSync(certfile)) {
-//     return {key: fs.readFileSync(keyfile), cert: fs.readFileSync(certfile)};
-//   }
-//   throw new Error(`Load cert file ${keyfile} or ${certfile}`);
-// };
 
 const registerEventHandlers = (server, opts) => {
   server.on('listening', () => {
-    const server_type = opts.https ? 'https' : 'http';
-    logger.info('The %s server running on: ', server_type, server.address());
+    const serverTypes = opts.https ? 'https' : 'http';
+    logger.info('The %s server running on: ', serverTypes, server.address());
   });
 
   server.on('error', (error) => {
@@ -57,14 +51,14 @@ const registerEventHandlers = (server, opts) => {
   return server;
 };
 
-const default_options = {
+const defaultOptions = {
   https: false,
   port: util.parsePort(process.env.port || '3000'),
 };
 
 export default {
   run: (app, opts = {}) => {
-    opts = Object.assign({}, default_options, opts);
+    opts = Object.assign({}, defaultOptions, opts);
 
     let server;
     if (opts.https) {
