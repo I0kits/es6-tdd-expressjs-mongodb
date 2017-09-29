@@ -1,3 +1,3 @@
 module.exports = {
-    '@icon-url': '"~antd-iconfont/iconfont"',
+  '@icon-url': '"~antd-iconfont/iconfont"',
 };
