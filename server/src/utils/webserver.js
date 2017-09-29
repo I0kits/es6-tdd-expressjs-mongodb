@@ -1,7 +1,3 @@
-// import fs from 'fs';
-// import path from 'path';
-// import path from 'path';
-
 import http from 'http';
 import https from 'https';
 
@@ -33,8 +29,8 @@ const util = {
 
 const registerEventHandlers = (server, opts) => {
   server.on('listening', () => {
-    const serverTypes = opts.https ? 'https' : 'http';
-    logger.info('The %s server running on: ', serverTypes, server.address());
+    const serverTypes = opts.https ? 'HTTPS' : 'HTTP';
+    logger.info('The %s server running on: %j', serverTypes, server.address());
   });
 
   server.on('error', (error) => {
@@ -60,19 +56,11 @@ export default {
   run: (app, opts = {}) => {
     opts = Object.assign({}, defaultOptions, opts);
 
-    let server;
-    if (opts.https) {
-      server = https.createServer(loadHttpsConfig(opts), app);
-    } else {
-      server = http.createServer(app);
-    }
+    let server = opts.https
+        ? https.createServer(loadHttpsConfig(opts), app)
+        : http.createServer(app);
 
     registerEventHandlers(server, opts).listen(opts.port);
-
-    process.on('beforeExit', ()=> {
-      logger.info('the server will be close.');
-      graceful.gracefulExitHandler(app, server, {});
-    });
 
     return server;
   },

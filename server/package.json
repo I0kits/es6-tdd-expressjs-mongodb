@@ -6,21 +6,9 @@
   "description": "Report generator of Peacock.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "lint": "eslint src",
     "dev": "nodemon index.js",
-    "lint": "eslint src"
-  },
-  "babel": {
-    "presets": [
-      [
-        "env",
-        {
-          "targets": {
-            "node": "current"
-          }
-        }
-      ]
-    ]
+    "start": "pm2 start main.json -i 0"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
@@ -33,14 +21,16 @@
     "express-history-api-fallback": "^2.2.1",
     "getenv": "^0.7.0",
     "lodash": "^4.17.4",
+    "moment": "^2.18.1",
     "mongoose": "^4.11.13",
     "morgan": "^1.8.2",
+    "pm2": "^2.7.1",
     "serve-favicon": "^2.4.4",
     "winston": "^2.3.1"
   },
   "devDependencies": {
-    "eslint": "^4.7.2",
     "babel-eslint": "^8.0.0",
+    "eslint": "^4.7.2",
     "eslint-config-google": "^0.9.1",
     "nodemon": "^1.12.1"
   }
