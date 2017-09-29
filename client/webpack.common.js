@@ -1,8 +1,6 @@
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-
-const output_path = path.resolve(__dirname, '../www');
 
 module.exports = {
   entry: path.resolve(__dirname, './src/index.js'),
@@ -12,12 +10,12 @@ module.exports = {
         title: 'Output Management',
         template: './src/index.html'
       }),
-    new CleanWebpackPlugin([output_path], {allowExternal: true}),
+    new ExtractTextPlugin({
+      filename: '[name]-[chunkhash].css',
+      disable: false,
+      allChunks: true,
+    }),
   ],
-  output: {
-    path: output_path,
-    filename: '[name].[chunkhash].bundle.js',
-  },
   module: {
     rules: [
       {
@@ -37,17 +35,24 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader','css-loader']
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: ['css-loader']
+        })
+      },
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: ['css-loader', 'sass-loader']
+        })
       },
       {
         test: /\.less$/,
-        use: [{
-          loader: "style-loader"
-        }, {
-          loader: "css-loader"
-        }, {
-          loader: "less-loader"
-        }]
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: ['css-loader', 'less-loader']
+        })
       }
     ]
   }
