@@ -1,0 +1,44 @@
+#root {
+    height: 100%;
+}
+
+.container {
+     margin: 0 auto;
+}
+
+@media (min-width:768px) {
+    .container {
+        width: 750px
+    }
+}
+@media (min-width:992px) {
+    .container {
+        width: 970px
+    }
+}
+@media (min-width:1200px) {
+    .container {
+        width: 1170px
+    }
+}
+
+.page-wrapper {
+    height: 100%;
+}
+
+.main-wrapper {
+    margin-top: 24px;
+    border-radius: 4px;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.ant-layout {
+    .ant-layout-header{
+        height: 47px
+    }
+}
+
+.ant-layout-content {
+    background-color: #d0d6dc;
+}

@@ -1,0 +1,27 @@
+
+.header {
+
+}
+
+.profile {
+  float: right !important;
+  margin-right: 48px;
+
+  img {
+    border-radius: 50%;
+    height: 30px;
+    vertical-align: middle;
+  }
+
+  span {
+    margin-left: 10px;
+  }
+}
+
+.logo {
+   img {
+     width: 30px;
+     height: 30px;
+     vertical-align:middle;
+   }
+}

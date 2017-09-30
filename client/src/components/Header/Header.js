@@ -1,23 +1,26 @@
 import React from 'react';
 import { Menu, Icon } from 'antd';
-import { Link } from 'dva/router';
-import styles from './Header.css';
+import './Header.scss';
+import '../../index.scss';
 
 function Header() {
   return (
-    <div className={styles.normal}>
+    <div>
       <Menu
         mode="horizontal"
         theme="dark"
       >
-        <Menu.Item key="/">
-          <Link to="/"><Icon type="home" />Home</Link>
-        </Menu.Item>
-        <Menu.Item key="/404">
-          <Link to="/404"><Icon type="frown-circle" />404</Link>
+        <Menu.Item disabled className="logo">
+          <img src="https://l.ruby-china.org/user/avatar/13505.jpg!sm" alt="logo" />
         </Menu.Item>
         <Menu.Item key="/antd">
-          <a href="https://github.com/dvajs/dva">dva</a>
+          <span><Icon type="file-text" />Fact Sheet</span>
+        </Menu.Item>
+        <Menu.Item>
+          <span><Icon type="clock-circle-o" />Schedule</span>
+        </Menu.Item>
+        <Menu.Item className="profile">
+          <span><img src="https://l.ruby-china.org/user/avatar/13505.jpg!sm" alt="acvater" /><span>Hi Bobby</span></span>
         </Menu.Item>
       </Menu>
     </div>

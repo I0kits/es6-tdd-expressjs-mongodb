@@ -1,6 +1,6 @@
 import dva from 'dva';
 import createBrowserHistory from 'history/createBrowserHistory';
-import './index.css';
+import './index.scss';
 import router from './router';
 
 // 1. Initialize
