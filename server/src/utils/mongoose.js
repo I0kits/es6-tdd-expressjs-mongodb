@@ -3,29 +3,38 @@ import logger from '../utils/logger';
 
 mongoose.Promise = global.Promise;
 
+mongoose.connection.on('connected', () =>{
+  logger.info('Mongoose get connection successfully.');
+});
+
+mongoose.connection.on('error', (err) =>{
+  logger.error('Mongoose get connection error: %o', err);
+});
+
+mongoose.connection.on('disconnected', () =>{
+  logger.info('Mongoose mongodb connection disconnected.');
+});
+
+
 const wrap = {
-  init: (hosts, name, user, pass, params, opts = {}) => {
+  init: (hosts, name, user, pass, params, opts = {}) =>{
+    const uri = `mongodb://${hosts}/${name}?${params}`;
     const option = {
       user, pass,
       useMongoClient: true,
-      promiseLibrary: global.Promise,
+      promiseLibrary: mongoose.Promise,
       ...opts
     };
 
-    const uri = `mongodb://${hosts}/${name}?${params}`;
-    logger.info('try to connecting mongodb: %s with %j', uri, option);
+    logger.info('Connecting to mongodb: %s with %j', uri, {...option, pass: '******'});
 
-    mongoose.connect(uri, option).then(() => {
-      logger.info('mongodb connected, ready to persist your data.');
-    }, (err) => {
-      logger.error('');
-    });
-
-
+    mongoose.connect(uri, option)
     return wrap;
   },
 
-  disconnect: (cb) => {
-
+  disconnect: (cb) =>{
+    mongoose.disconnect(cb)
   }
 };
+
+export default wrap;

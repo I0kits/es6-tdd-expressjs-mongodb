@@ -1,8 +1,10 @@
-.DS_Store
-client/.idea/
-client/node_modules/
-client/dist/
+.pm2
 .idea
+.DS_Store
+.babel.json
+
 www/
+logs/
 node_modules
+client/dist/
 npm-debug.log
