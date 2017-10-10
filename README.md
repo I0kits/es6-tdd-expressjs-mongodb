@@ -26,15 +26,22 @@
 
 ### Tasks
 * create report project skeleton
-	* [x] front-end
+  * [x] front-end
 		* [x] eslint
 		* [x] react/webpack
 		* [x] antd/local-icon
 		* [x] mocha/chai
 		* [x] sample pages
-	* [] backend
+	* [x] backend
 		* [x] logs: morgan/winston
 		* [x] eslint
 		* [x] pm2
 		* [x] mongodb/mongoose
-		* [x] support errbit for error message.
+		* [] support errbit for error message.
+		
+* get migration framework for report project
+	* 
+
+* setup deploy pipeline for report project
+
+* setup deploy pipeline for C2 project
