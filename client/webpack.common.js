@@ -1,10 +1,17 @@
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const theme = require('./src/theme');
+const output_path = path.resolve(__dirname, '../www');
 
 module.exports = {
   entry: path.resolve(__dirname, './src/index.js'),
+  output: {
+    path: output_path,
+    filename: '[name].[hash]-[id].bundle.js',
+  },
+
   plugins: [
     new HtmlWebpackPlugin(
       {
@@ -16,6 +23,7 @@ module.exports = {
       disable: false,
       allChunks: true,
     }),
+    new CleanWebpackPlugin([output_path], {allowExternal: true}),
   ],
   module: {
     rules: [

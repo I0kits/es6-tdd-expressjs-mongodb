@@ -7,10 +7,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const output_path = path.resolve(__dirname, '../www');
 
 module.exports = merge(common,{
-  output: {
-    path: output_path,
-    filename: '[name].[chunkhash].bundle.js',
-  },
   devtool: 'source-map',
 
   plugins: [
