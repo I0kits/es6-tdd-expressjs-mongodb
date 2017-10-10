@@ -1,19 +1,32 @@
 import path from 'path';
-import morgan from 'morgan';
 import express from 'express';
 import favicon from 'serve-favicon';
 import compression from 'compression';
-import fallback from 'express-history-api-fallback'
+import fallback from 'express-history-api-fallback';
 
+import config from './config';
+import mogran from './utils/morgan';
+import mongoose from './utils/mongoose';
 import webserver from './utils/webserver';
 
-const www = path.join(__dirname, '../../www');
+const staticPath = path.join(__dirname, '../../www');
+const faviconPath = path.join(__dirname, '../static');
+
 const app = express();
+const mongodb = mongoose.init(config.dbHosts, config.dbName, config.dbUser, config.dbPass, config.dbParams);
 
 app.use(compression());
-app.use(morgan('combined'));
-app.use(express.static(www));
-app.use(fallback('index.html', { root: www }));
-app.use(favicon(path.join(__dirname, '../public', 'favicon.ico')));
+app.use(mogran.create());
+app.use(express.static(staticPath));
+app.use(fallback('index.html', {root: staticPath}));
+app.use(favicon(path.join(faviconPath, 'favicon.ico')));
 
-webserver.run(app);
+const server = webserver.run(app);
+
+server.onSigint((cb) =>{
+  server.close(() =>{
+    mongodb.disconnect((err) =>{
+      cb(err)
+    })
+  });
+});

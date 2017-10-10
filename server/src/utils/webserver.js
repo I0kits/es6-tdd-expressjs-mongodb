@@ -1,23 +1,10 @@
-// import fs from 'fs';
-// import path from 'path';
-// import path from 'path';
-
 import http from 'http';
 import https from 'https';
 
 import logger from './logger';
 
 const util = {
-  parsePort: (input) => {
-    const port = parseInt(input, 10);
-    return isNaN(port) ? input : port >= 0 ? port : false;
-  },
-
-  parseServerAddress: (addr) => {
-    return typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-  },
-
-  parseHttpServerError: (error, port) => {
+  parseHttpServerError: (error, port) =>{
     const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
     switch (error.code) {
       case 'EACCES':
@@ -30,21 +17,20 @@ const util = {
   },
 };
 
-
-const registerEventHandlers = (server, opts) => {
-  server.on('listening', () => {
-    const serverTypes = opts.https ? 'https' : 'http';
-    logger.info('The %s server running on: ', serverTypes, server.address());
+const registerEventHandlers = (server, opts) =>{
+  server.on('listening', () =>{
+    const serverTypes = opts.https ? 'HTTPS' : 'HTTP';
+    logger.info('The %s server running on: %j', serverTypes, server.address());
   });
 
-  server.on('error', (error) => {
+  server.on('error', (error) =>{
     if (error.syscall !== 'listen') {
       throw error;
     }
-    logger.error(util.parseHttpServerError(error, PORT));
+    logger.error(util.parseHttpServerError(error, opts.port));
   });
 
-  server.on('close', () => {
+  server.on('close', () =>{
     logger.info('The web server be closed.');
   });
 
@@ -52,28 +38,36 @@ const registerEventHandlers = (server, opts) => {
 };
 
 const defaultOptions = {
-  https: false,
-  port: util.parsePort(process.env.port || '3000'),
+  port: 3000,
+  https: false
 };
 
 export default {
-  run: (app, opts = {}) => {
+  run: (app, opts = {}) =>{
     opts = Object.assign({}, defaultOptions, opts);
 
-    let server;
-    if (opts.https) {
-      server = https.createServer(loadHttpsConfig(opts), app);
-    } else {
-      server = http.createServer(app);
-    }
+    let server = opts.https
+      ? https.createServer(loadHttpsConfig(opts), app)
+      : http.createServer(app);
 
     registerEventHandlers(server, opts).listen(opts.port);
 
-    process.on('beforeExit', ()=> {
-      logger.info('the server will be close.');
-      graceful.gracefulExitHandler(app, server, {});
-    });
+    server.onSigint = (callback) =>{
+      process.on('SIGINT', () =>{
+        callback((err) =>{
+          process.exit(err ? 1 : 0);
+        });
+      });
+
+      process.on('message', (msg)=> {
+        if (msg === 'shutdown') {
+          callback((err) =>{
+            process.exit(err ? 1 : 0);
+          });
+        }
+      });
+    };
 
     return server;
-  },
+  }
 };

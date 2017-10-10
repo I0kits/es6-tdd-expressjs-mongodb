@@ -1,3 +1,5 @@
 require('babel-polyfill');
-require('babel-register')();
+require('babel-register')({
+  minified: true
+});
 require('./src/app');

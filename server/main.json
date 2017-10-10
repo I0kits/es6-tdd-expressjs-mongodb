@@ -1,0 +1,10 @@
+{
+  "apps": [
+    {
+      "instances": "max",
+      "script": "index.js",
+      "kill_timeout": 5000,
+      "exec_mode": "cluster"
+    }
+  ]
+}
