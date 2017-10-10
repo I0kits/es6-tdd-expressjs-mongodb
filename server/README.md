@@ -1,17 +1,11 @@
-# Report generator of Peacock
+
 
 Report generator Server side.
 
 
-### Tasks
-* mongodb connection pool and mongoose.
-* import errbit for error message.
-* add pm2
-* destroy resource when shutdown
-* get tdd tools chain ready
-* rx lib import
 
-
+### Services
+* [mongoodb](https://cloud.mongodb.com/v2/59c609bec0c6e31fa334e68e#clusters)
 
 ### Refs
 * [node docs](http://nodejs.cn/api/process.html)

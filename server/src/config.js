@@ -14,7 +14,9 @@ const conf = {
   dbName: 'peacock',
   dbPass: 'ZhQPz5h9uVT2vHgS',
   dbParams: 'ssl=true&replicaSet=peacock-shard-0&authSource=admin',
-  dbHosts: 'peacock-shard-00-00-cfrmo.mongodb.net,peacock-shard-00-01-cfrmo.mongodb.net,peacock-shard-00-02-cfrmo.mongodb.net'
+  /* eslint-disable */
+  dbHosts: 'peacock-shard-00-00-cfrmo.mongodb.net,peacock-shard-00-01-cfrmo.mongodb.net,peacock-shard-00-02-cfrmo.mongodb.net',
+  /* eslint-enable */
 };
 
 export default {

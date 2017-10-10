@@ -11,5 +11,5 @@ const stream = rfs('access.log', {interval: '1d', path: config.logPath});
 export default {
   create: () =>{
     return morgan('combined', {stream});
-  }
-}
+  },
+};

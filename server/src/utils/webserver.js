@@ -7,12 +7,12 @@ const util = {
   parseHttpServerError: (error, port) =>{
     const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
     switch (error.code) {
-      case 'EACCES':
-        return bind + ' requires elevated privileges';
-      case 'EADDRINUSE':
-        return bind + ' is already in use';
-      default:
-        throw error;
+    case 'EACCES':
+      return bind + ' requires elevated privileges';
+    case 'EADDRINUSE':
+      return bind + ' is already in use';
+    default:
+      throw error;
     }
   },
 };
@@ -39,7 +39,7 @@ const registerEventHandlers = (server, opts) =>{
 
 const defaultOptions = {
   port: 3000,
-  https: false
+  https: null,
 };
 
 export default {
@@ -69,5 +69,5 @@ export default {
     };
 
     return server;
-  }
+  },
 };
