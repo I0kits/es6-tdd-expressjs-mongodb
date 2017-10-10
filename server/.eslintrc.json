@@ -1,6 +1,7 @@
 {
-    "extends": "google",
-    "parser": "babel-eslint",
-    "rules": {
-    }
+  "extends": "google",
+  "parser": "babel-eslint",
+  "rules": {
+    "indent": [ "error", 2 ]
+  }
 }

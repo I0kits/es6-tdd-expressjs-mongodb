@@ -12,9 +12,12 @@ import webserver from './utils/webserver';
 const staticPath = path.join(__dirname, '../../www');
 const faviconPath = path.join(__dirname, '../static');
 
-const app = express();
-const mongodb = mongoose.init(config.dbHosts, config.dbName, config.dbUser, config.dbPass, config.dbParams);
+const mongodb = mongoose.init(
+  config.dbHosts, config.dbName,
+  config.dbUser, config.dbPass, config.dbParams
+);
 
+const app = express();
 app.use(compression());
 app.use(mogran.create());
 app.use(express.static(staticPath));
@@ -23,10 +26,10 @@ app.use(favicon(path.join(faviconPath, 'favicon.ico')));
 
 const server = webserver.run(app);
 
-server.onSigint((cb) =>{
-  server.close(() =>{
-    mongodb.disconnect((err) =>{
-      cb(err)
-    })
+server.onSigint((cb) => {
+  server.close(() => {
+    mongodb.disconnect((err) => {
+      cb(err);
+    });
   });
 });
