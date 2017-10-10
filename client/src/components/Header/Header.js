@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'dva/router';
 import { Menu, Icon } from 'antd';
-import './Header.scss';
-import '../../index.scss';
+import './Header.less';
+import '../../index.less';
 
 function Header() {
   return (

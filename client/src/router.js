@@ -13,7 +13,7 @@ import Template from './components/Template/Template';
 
 import Index from './routes/Index.js';
 import Schedule from './routes/Schedule';
-import './index.scss';
+import './index.less';
 
 
 function RouterConfig({ history, app }) {
