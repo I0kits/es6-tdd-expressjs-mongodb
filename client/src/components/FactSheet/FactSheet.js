@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Tabs, Table, Icon } from 'antd';
-import './FactSheet.scss';
+import './FactSheet.less';
 
 const columns = [{
   title: 'Publish Time',

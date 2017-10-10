@@ -50,13 +50,6 @@ module.exports = {
         })
       },
       {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: ['css-loader', 'sass-loader','less-loader']
-        })
-      },
-      {
         test: /\.less$/,
         use: ExtractTextPlugin.extract({
           fallback: "style-loader",
