@@ -1,12 +1,12 @@
-import {users,dosomething} from '../../src/models/users';
+import {facts,dosomething} from '../../src/models/facts';
 import { expect } from 'chai';
 import { effects } from 'dva/saga';
 
-describe('User Model', () => {
+describe('Facts Model', () => {
 
   describe('reducer', () => {
     it('should return updated states', () => {
-      const reducers = users.reducers;
+      const reducers = facts.reducers;
       const reducer = reducers.save;
       const state = {payload: "helloworld"};
       const action = {
@@ -24,17 +24,17 @@ describe('User Model', () => {
   describe('effects', () => {
     it('should do something', () => {
       const { call, put } = effects;
-      const sagas = users.effects;
+      const sagas = facts.effects;
       const saga = sagas.test;
 
-      const generator = saga({ type: 'users/test' }, { call, put });
+      const generator = saga({ type: 'facts/test' }, { call, put });
       let next = generator.next();
 
       expect(next.value).to.deep.equal(call(dosomething));
 
       next = generator.next();
 
-      expect(next.value).to.deep.equal(put({ type: 'users/save', payload: '233' }));
+      expect(next.value).to.deep.equal(put({ type: 'facts/save', payload: '233' }));
     });
   })
 });
