@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'dva/router';
 import { Menu, Icon } from 'antd';
 import './Header.scss';
 import '../../index.scss';
@@ -14,10 +15,10 @@ function Header() {
           <img src="https://l.ruby-china.org/user/avatar/13505.jpg!sm" alt="logo" />
         </Menu.Item>
         <Menu.Item key="/antd">
-          <span><Icon type="file-text" />Fact Sheet</span>
+          <Link to="/"><Icon type="file-text" />Fact Sheet</Link>
         </Menu.Item>
         <Menu.Item>
-          <span><Icon type="clock-circle-o" />Schedule</span>
+          <Link to="/schedule"><Icon type="clock-circle-o" />Schedule</Link>
         </Menu.Item>
         <Menu.Item className="profile">
           <span><img src="https://l.ruby-china.org/user/avatar/13505.jpg!sm" alt="acvater" /><span>Hi Bobby</span></span>
