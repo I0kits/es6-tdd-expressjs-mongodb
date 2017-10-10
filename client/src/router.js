@@ -6,6 +6,7 @@ import enUS from 'antd/lib/locale-provider/en_US';
 import { Layout, LocaleProvider } from 'antd';
 
 import { users } from './models/users';
+import { facts } from './models/facts';
 
 import NotFound from './components/NotFound';
 import Header from './components/Header/Header';
@@ -20,6 +21,12 @@ function RouterConfig({ history, app }) {
     app,
     models: () => [users],
     component: () => Users,
+  });
+
+  const FactsContainer = dynamic({
+    app,
+    models: () => [facts],
+    component: () => Index,
   });
   return (
     <LocaleProvider locale={enUS}>
@@ -40,7 +47,7 @@ function RouterConfig({ history, app }) {
                 <div className="main-wrapper">
                   <Switch>
                     <Route exact path="/users" component={UsersContainer} />
-                    <Route exact path="/" component={Index} />
+                    <Route exact path="/" component={FactsContainer} />
                     <Route component={NotFound} />
                   </Switch>
                 </div>
