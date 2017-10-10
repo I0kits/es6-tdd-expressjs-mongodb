@@ -7,7 +7,7 @@ const conf = {
   port: 3000,
   home: baseDir,
 
-  logLevel: 'debug',
+  logLevel: 'debug', //from pino: 'fatal', 'error', 'warn', 'info', 'debug', 'trace'; 'silent'
   logPath: path.join(baseDir, 'logs'),
 
   dbUser: 'peacock',

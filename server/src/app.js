@@ -1,32 +1,41 @@
 import path from 'path';
-import express from 'express';
-import favicon from 'serve-favicon';
-import compression from 'compression';
-import fallback from 'express-history-api-fallback';
+import fastify from 'fastify';
+import fastifyShutdown from 'fastify-graceful-shutdown';
+import fastifyHistoryApiSupport from './plugins/browser-history-api-support';
 
 import config from './config';
-import mogran from './utils/morgan';
 import mongoose from './utils/mongoose';
-import webserver from './utils/webserver';
 
-const staticPath = path.join(__dirname, '../../www');
-const faviconPath = path.join(__dirname, '../static');
-
-const app = express();
 const mongodb = mongoose.init(config.dbHosts, config.dbName, config.dbUser, config.dbPass, config.dbParams);
 
-app.use(compression());
-app.use(mogran.create());
-app.use(express.static(staticPath));
-app.use(fallback('index.html', {root: staticPath}));
-app.use(favicon(path.join(faviconPath, 'favicon.ico')));
+const app = fastify({
+  //https: {},
+  logger: {level: config.logLevel}
+});
 
-const server = webserver.run(app);
+app.register(fastifyHistoryApiSupport, {
+  file: 'index.html',
+  path: path.join(__dirname, '../../www')
+});
 
-server.onSigint((cb) =>{
-  server.close(() =>{
-    mongodb.disconnect((err) =>{
-      cb(err)
-    })
-  });
+app.register(fastifyShutdown);
+
+app.get('/hello', async function(req, res){
+  console.log(req.accepts('html'))
+  console.log(res.sendFile);
+  console.log(req.type('html'));
+  return "data";
+});
+
+app.listen(config.port, (err) =>{
+  if (err) throw err;
+  app.logger.info('The web server running on: %s:%s', app.server.address().address, app.server.address().port);
+});
+
+app.addHook('onClose', (instance, done) =>{
+  app.logger.info('Stopping the web server...:');
+  mongodb.disconnect(() =>{
+    app.logger.info('The web server be closed.');
+    done();
+  })
 });
