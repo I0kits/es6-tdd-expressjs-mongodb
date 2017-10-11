@@ -8,15 +8,7 @@ const static_config = {
   home: baseDir,
 
   logLevel: 'debug',
-  logPath: path.join(baseDir, 'logs'),
-
-  dbUser: 'peacock',
-  dbName: 'peacock',
-  dbPass: 'ZhQPz5h9uVT2vHgS',
-  dbParams: 'ssl=true&replicaSet=peacock-shard-0&authSource=admin',
-  /* eslint-disable */
-  dbHosts: 'peacock-shard-00-00-cfrmo.mongodb.net,peacock-shard-00-01-cfrmo.mongodb.net,peacock-shard-00-02-cfrmo.mongodb.net',
-  /* eslint-enable */
+  logPath: path.join(baseDir, 'logs')
 };
 
 const dynamic_config = require('config');
