@@ -11,7 +11,9 @@
     "build": "echo 'TODO: use webpack to build server side.'",
     "stop": "HOME=$PWD/../ pm2 stop all",
     "clean": "HOME=$PWD/../ pm2 delete all",
-    "start": "HOME=$PWD/../ pm2 start main.json -i 0"
+    "start": "HOME=$PWD/../ pm2 start main.json -i 0",
+    "test": "NODE_ENV=test mocha test/**/*.js --watch --compilers js:babel-core/register --require ignore-styles",
+    "db-migrate": "db-migrate --config migrations/database.json --migrations-dir migrations/changeset"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
@@ -20,6 +22,9 @@
     "babel-preset-env": "^1.6.0",
     "bluebird": "^3.5.1",
     "compression": "^1.7.0",
+    "config": "^1.26.2",
+    "db-migrate": "^0.10.0-beta.24",
+    "db-migrate-mongodb": "^1.2.3",
     "express": "^4.16.1",
     "express-history-api-fallback": "^2.2.1",
     "getenv": "^0.7.0",
@@ -33,8 +38,12 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.0.0",
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
     "eslint": "^4.7.2",
     "eslint-config-google": "^0.9.1",
+    "ignore-styles": "^5.0.1",
+    "mocha": "^4.0.1",
     "nodemon": "^1.12.1"
   }
 }
