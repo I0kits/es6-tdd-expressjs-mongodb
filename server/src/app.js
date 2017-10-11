@@ -37,4 +37,4 @@ server.onSigint((cb) => {
   });
 });
 
-module.exports = app
+module.exports = app;

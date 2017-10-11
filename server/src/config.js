@@ -3,24 +3,24 @@ import env from 'getenv';
 
 const baseDir = path.join(__dirname, '..', '..');
 
-const static_config = {
+const staticConfig = {
   port: 3000,
   home: baseDir,
 
   logLevel: 'debug',
-  logPath: path.join(baseDir, 'logs')
+  logPath: path.join(baseDir, 'logs'),
 };
 
-const dynamic_config = require('config');
+const dynamicConfig = require('config');
 
 export default {
-  port: env.int('port', static_config.port),
-  home: env.string('HOME_DIR', static_config.home),
-  dbUser: env.string('DB_USER', dynamic_config.dbUser),
-  dbName: env.string('DB_NAME', dynamic_config.dbName),
-  dbPass: env.string('DB_PASS', dynamic_config.dbPass),
-  dbHosts: env.string('DB_HOSTS', dynamic_config.dbHosts),
-  logPath: env.string('LOG_PATH', static_config.logPath),
-  dbParams: env.string('DB_PARAMS', dynamic_config.dbParams),
-  logLevel: env.string('LOG_LEVEL', static_config.logLevel),
+  port: env.int('port', staticConfig.port),
+  home: env.string('HOME_DIR', staticConfig.home),
+  dbUser: env.string('DB_USER', dynamicConfig.dbUser),
+  dbName: env.string('DB_NAME', dynamicConfig.dbName),
+  dbPass: env.string('DB_PASS', dynamicConfig.dbPass),
+  dbHosts: env.string('DB_HOSTS', dynamicConfig.dbHosts),
+  logPath: env.string('LOG_PATH', staticConfig.logPath),
+  dbParams: env.string('DB_PARAMS', dynamicConfig.dbParams),
+  logLevel: env.string('LOG_LEVEL', staticConfig.logLevel),
 };

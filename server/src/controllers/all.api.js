@@ -1,5 +1,5 @@
 let express = require('express');
-let router = express.Router();
+let router = new express.Router();
 
 router.get('/', function(req, res, next) {
   res.json({message: 'great!'});
@@ -8,4 +8,4 @@ router.get('/', function(req, res, next) {
 // *** api routes *** //
 router.use(require('./foo.api.js'));
 
-module.exports = router
+module.exports = router;
