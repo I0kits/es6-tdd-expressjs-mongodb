@@ -1,11 +1,13 @@
-let express = require('express');
-let router = new express.Router();
+import express from 'express';
+import templateApi from './template.api';
+
+const router = new express.Router();
 
 router.get('/', function(req, res, next) {
   res.json({message: 'great!'});
 });
 
 // *** api routes *** //
-router.use(require('./foo.api.js'));
+router.use(templateApi);
 
-module.exports = router;
+export default router;

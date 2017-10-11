@@ -8,6 +8,7 @@ import config from './config';
 import mogran from './utils/morgan';
 import mongoose from './utils/mongoose';
 import webserver from './utils/webserver';
+import routes from './controllers/all.api';
 
 const staticPath = path.join(__dirname, '../../www');
 const faviconPath = path.join(__dirname, '../static');
@@ -18,7 +19,6 @@ const mongodb = mongoose.init(
 );
 
 const app = express();
-const routes = require('./controllers/all.api');
 
 app.use(compression());
 app.use(mogran.create());
@@ -37,4 +37,4 @@ server.onSigint((cb) => {
   });
 });
 
-module.exports = app;
+export default app;
