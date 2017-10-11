@@ -1,8 +1,9 @@
 import winston from 'winston';
 import config from '../config';
 
-const formatter = (opts)=> {
-  `${opts.timestamp()} [${opts.level.toUpperCase()}] ${opts.message || ''}`;
+const formatter = (opts) =>{
+  const msg = opts.message || '';
+  return `${opts.timestamp()} [${opts.level.toUpperCase()}] ${msg}`;
 };
 
 const logger = new winston.Logger({

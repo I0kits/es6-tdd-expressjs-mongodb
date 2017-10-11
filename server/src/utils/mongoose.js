@@ -1,7 +1,10 @@
 import mongoose from 'mongoose';
+import Promise from 'bluebird';
+
 import logger from '../utils/logger';
 
-mongoose.Promise = global.Promise;
+mongoose.Promise = Promise;
+Promise.promisifyAll(mongoose);
 
 mongoose.connection.on('connected', () => {
   logger.info('Mongoose get connection successfully.');
@@ -22,7 +25,7 @@ const wrap = {
     const option = {
       user, pass,
       useMongoClient: true,
-      promiseLibrary: mongoose.Promise,
+      promiseLibrary: Promise,
       ...opts,
     };
 
