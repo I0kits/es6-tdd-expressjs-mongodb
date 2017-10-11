@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Switch, Route } from 'dva/router';
+import { Router, Switch, Route, Redirect } from 'dva/router';
 import dynamic from 'dva/dynamic';
 import enUS from 'antd/lib/locale-provider/en_US';
 
@@ -14,7 +14,6 @@ import Template from './components/Template/Template';
 import Index from './routes/Index.js';
 import Schedule from './routes/Schedule';
 import './index.less';
-
 
 function RouterConfig({ history, app }) {
   const FactsContainer = dynamic({
@@ -41,7 +40,8 @@ function RouterConfig({ history, app }) {
               <main>
                 <div className="main-wrapper">
                   <Switch>
-                    <Route exact path="/" component={FactsContainer} />
+                    <Redirect exact from="/" to="/facts" />
+                    <Route exact path="/facts" component={FactsContainer} />
                     <Route exact path="/schedule" component={Schedule} />
                     <Route exact path="/template" component={Template} />
                     <Route component={NotFound} />
