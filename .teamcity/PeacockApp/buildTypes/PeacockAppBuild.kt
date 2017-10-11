@@ -25,7 +25,6 @@ object PeacockAppBuild : BuildType({
         param("epoch", "0")
         param("jforgUrl", "http://odyssey.apps.csintra.net/artifactory/")
         param("jforgPath", "com/csg/ib/peacock")
-        param("jforgApikey", "??")
         param("pkgName", "peacock")
         param("pkgVersion", "%build.number%")
 
@@ -45,12 +44,12 @@ object PeacockAppBuild : BuildType({
 
         script {
             name = "Package"
-            scriptContent = """yarn run package --pkgName $pkgName --pkgVersion $pkgVersion"""
+            scriptContent = """yarn run package --pkgName %pkgName% --pkgVersion %pkgVersion%"""
         }
 
         script {
             name = "Publish"
-            scriptContent = """yarn run publish --jfrogUrl $jfrogUrl --jforgPath $jforgPath --jforgApikey $jforgApikey --pkgName $pkgName --pkgVersion $pkgVersion"""
+            scriptContent = """yarn run publish --jfrogUrl %jfrogUrl% --jforgPath %jforgPath% --jforgApikey %artifactoryApiToken% --pkgName %pkgName% --pkgVersion %pkgVersion%"""
         }
     }
 
