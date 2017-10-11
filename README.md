@@ -27,11 +27,11 @@
 ### Tasks
 * create report project skeleton
   * [x] front-end
-		* [x] eslint
-		* [x] react/webpack
-		* [x] antd/local-icon
-		* [x] mocha/chai
-		* [x] sample pages
+		* eslint
+		* react/webpack
+		* antd/local-icon
+		* mocha/chai
+		* sample pages
 	* [x] backend
 		* [x] logs: morgan/winston
 		* [x] eslint
@@ -45,3 +45,9 @@
 * setup deploy pipeline for report project
 
 * setup deploy pipeline for C2 project
+
+
+### Services
+* [JFrog](http://odyssey.apps.csintra.net/artifactory/)
+	*  
+

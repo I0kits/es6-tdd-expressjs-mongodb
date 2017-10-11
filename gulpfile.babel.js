@@ -4,6 +4,13 @@ import tar from 'gulp-tar';
 import gzip from 'gulp-gzip';
 import util from 'gulp-util';
 import run from 'gulp-run-command';
+import jfrog from 'gulp-artifactory-upload';
+
+const jfrogServer = util.env.jfrog || 'https://peacock.jfrog.io/peacock/libs-release-local';
+const jfrogPath = util.env.path || 'com/csg/ib/peacock';
+/* eslint-disable */
+const jfrogApiKey = util.env.apikey || 'AKCp5Z3WW9x1FYFCrmkYSaXc8iLc5LKuJXnPN9AZJnDUZuDWgYLEvcis2R3WaTeb9c4jByKUN';
+/* eslint-enable */
 
 const pkgName = util.env.pkgName || 'pkgName';
 const pkgVersion = util.env.pkgVersion || 'pkgVersion';
@@ -29,7 +36,7 @@ gulp.task('build-server', run([
   'yarn run build',
 ], {cwd: serverSrcDir}));
 
-gulp.task('package', ['build-client', 'build-server'], ()=> {
+gulp.task('package', ['build-client', 'build-server'], () =>{
   const serverSources = [
     'www/**/*',
     'server/.*',
@@ -44,4 +51,16 @@ gulp.task('package', ['build-client', 'build-server'], ()=> {
     .pipe(gulp.dest(distDir));
 });
 
-gulp.task('default', ['zip']);
+gulp.task('publish', ['package'], () =>{
+  const request = {
+    headers: {'X-JFrog-Art-Api': jfrogApiKey},
+  };
+
+  const url = `${jfrogServer}/${jfrogPath}/${pkgVersion}`;
+
+  return gulp.src(path.join(distDir, distName))
+    .pipe(jfrog({request, url}))
+    .on('error', util.log);
+});
+
+gulp.task('default', ['publish']);
