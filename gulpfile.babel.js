@@ -40,7 +40,7 @@ gulp.task('package', ['build-client', 'build-server'], ()=> {
 
   return gulp.src(serverSources, {base: '.'})
     .pipe(tar(distName))
-    .pipe(gzip())
+    .pipe(gzip({append: false}))
     .pipe(gulp.dest(distDir));
 });
 
