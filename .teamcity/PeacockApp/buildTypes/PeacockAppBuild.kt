@@ -15,6 +15,8 @@ object PeacockAppBuild : BuildType({
     extId = "PeacockAppBuild"
     name = "Build"
 
+    buildNumberPattern = "%epoch%.%build.counter%"
+
     vcs {
         root("Peacock_Peacock")
     }
@@ -23,7 +25,7 @@ object PeacockAppBuild : BuildType({
         param("epoch", "0")
         param("env.PATH", "%env.PATH%:%teamcity.build.workingDir%/build/nodejs/bin")
         param("env.pkgName", "peacock")
-        param("env.pkgVersion, "%epoch%.%build.counter%")
+        param("env.pkgVersion", "%build.number%")
     }
 
     steps {
