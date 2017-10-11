@@ -6,7 +6,7 @@ import util from 'gulp-util';
 import run from 'gulp-run-command';
 import jfrog from 'gulp-artifactory-upload';
 
-const jfrogServer = util.env.jfrog || 'https://peacock.jfrog.io/peacock/libs-release-local';
+const jfrogUrl = util.env.jfrog || 'https://peacock.jfrog.io/peacock/libs-release-local';
 const jfrogPath = util.env.path || 'com/csg/ib/peacock';
 /* eslint-disable */
 const jfrogApiKey = util.env.apikey || 'AKCp5Z3WW9x1FYFCrmkYSaXc8iLc5LKuJXnPN9AZJnDUZuDWgYLEvcis2R3WaTeb9c4jByKUN';
@@ -56,7 +56,7 @@ gulp.task('publish', ['package'], () =>{
     headers: {'X-JFrog-Art-Api': jfrogApiKey},
   };
 
-  const url = `${jfrogServer}/${jfrogPath}/${pkgVersion}`;
+  const url = `${jfrogUrl}/${jfrogPath}/${pkgVersion}`;
 
   return gulp.src(path.join(distDir, distName))
     .pipe(jfrog({request, url}))

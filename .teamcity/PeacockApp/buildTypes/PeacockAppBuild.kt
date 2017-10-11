@@ -23,20 +23,34 @@ object PeacockAppBuild : BuildType({
 
     params {
         param("epoch", "0")
+        param("jforgUrl", "http://odyssey.apps.csintra.net/artifactory/")
+        param("jforgPath", "com/csg/ib/peacock")
+        param("jforgApikey", "??")
+        param("pkgName", "peacock")
+        param("pkgVersion", "%build.number%")
+
         param("env.PATH", "%env.PATH%:%teamcity.build.workingDir%/build/nodejs/bin")
-        param("env.pkgName", "peacock")
-        param("env.pkgVersion", "%build.number%")
     }
 
     steps {
         script {
-            name = "Perpare Nodejs"
+            name = "Setup"
             scriptContent = """chmod +x go.sh && ./go.sh prepare_nodejs""""
         }
 
         script {
+            name = "Prepare"
+            scriptContent = """yarn install"""
+        }
+
+        script {
             name = "Package"
-            scriptContent = """yarn install && yarn run package"""
+            scriptContent = """yarn run package --pkgName $pkgName --pkgVersion $pkgVersion"""
+        }
+
+        script {
+            name = "Publish"
+            scriptContent = """yarn run publish --jfrogUrl $jfrogUrl --jforgPath $jforgPath --jforgApikey $jforgApikey --pkgName $pkgName --pkgVersion $pkgVersion"""
         }
     }
 

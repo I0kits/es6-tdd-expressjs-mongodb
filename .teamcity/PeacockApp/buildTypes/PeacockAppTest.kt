@@ -23,12 +23,13 @@ object PeacockAppTest : BuildType({
 
     steps {
         script {
-            name = "Prepare Nodejs"
-            scriptContent = """echo "prepare nodejs""""
+            name = "Setup"
+            scriptContent = """chmod +x go.sh && ./go.sh prepare_nodejs""""
         }
+
         script {
-            name = "Unit Test"
-            scriptContent = """echo "Unit Test""""
+            name = "Prepare"
+            scriptContent = """echo 'TODO....'"""
         }
     }
 
