@@ -18,11 +18,14 @@ const mongodb = mongoose.init(
 );
 
 const app = express();
+const routes = require('./controllers/all.api');
+
 app.use(compression());
 app.use(mogran.create());
 app.use(express.static(staticPath));
 app.use(fallback('index.html', {root: staticPath}));
 app.use(favicon(path.join(faviconPath, 'favicon.ico')));
+app.use('/', routes);
 
 const server = webserver.run(app);
 
@@ -33,3 +36,5 @@ server.onSigint((cb) => {
     });
   });
 });
+
+module.exports = app
