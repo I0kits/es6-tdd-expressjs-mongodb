@@ -10,7 +10,8 @@
     "dev": "nodemon index.js",
     "stop": "HOME=$PWD/../ pm2 stop all",
     "clean": "HOME=$PWD/../ pm2 delete all",
-    "start": "HOME=$PWD/../ pm2 start main.json -i 0"
+    "start": "HOME=$PWD/../ pm2 start main.json -i 0",
+    "db-migrate": "db-migrate --config migrations/database.json --migrations-dir migrations/changeset"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
@@ -20,6 +21,8 @@
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "compression": "^1.7.0",
+    "db-migrate": "^0.10.0-beta.24",
+    "db-migrate-mongodb": "^1.2.3",
     "express": "^4.16.1",
     "express-history-api-fallback": "^2.2.1",
     "getenv": "^0.7.0",
