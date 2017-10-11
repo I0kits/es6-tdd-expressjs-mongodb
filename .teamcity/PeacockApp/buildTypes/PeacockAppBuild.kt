@@ -20,18 +20,21 @@ object PeacockAppBuild : BuildType({
     }
 
     params {
+        param("epoch", "0")
         param("env.PATH", "%env.PATH%:%teamcity.build.workingDir%/build/nodejs/bin")
+        param("env.pkgName", "peacock")
+        param("env.pkgVersion, "%epoch%.%build.counter%")
     }
 
     steps {
         script {
             name = "Perpare Nodejs"
-            scriptContent = """echo "prepare nodejs""""
+            scriptContent = """chmod +x go.sh && ./go.sh prepare_nodejs""""
         }
 
         script {
-            name = "Build & Upload"
-            scriptContent = """echo "build & upload""""
+            name = "Package"
+            scriptContent = """yarn install && yarn run package"""
         }
     }
 
